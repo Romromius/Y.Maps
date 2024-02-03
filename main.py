@@ -1,5 +1,6 @@
 import os
 import sys
+import PyQt5.QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLabel
 import requests
 from PyQt5.QtGui import QPixmap
@@ -17,7 +18,10 @@ class Map(QMainWindow):
         self.img.setText('Загрузка')
         self.img.resize(600, 600)
 
-        self.search('Владивосток')
+        self.map_spn = 1
+        self.map_file = None
+        self.coords = (0, 0)
+        self.search('Vladivostok')
 
     def search(self, toponym):
         try:
@@ -30,15 +34,30 @@ class Map(QMainWindow):
             self.img.setText('Ошибка!')
             return
 
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={coords[0]},{coords[1]}&spn=30,30&l=map"
+        self.map_file = "map.png"
+
+        self.coords = coords
+        self.update_map()
+
+    def update_map(self):
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.coords[0]},{self.coords[1]}&spn={self.map_spn},{self.map_spn}&l=map"
         response = requests.get(map_request)
-        self.speaker.say('bad beep', 'request get')
         if not response:
             sys.exit(1)
-        self.map_file = "map.png"
         with open(self.map_file, "wb") as file:
             file.write(response.content)
+        self.speaker.say('bad beep', 'request get')
         self.img.setPixmap(QPixmap(self.map_file))
+
+    def keyPressEvent(self, event):
+        if event.key() == 45:
+            self.map_spn -= 1
+            self.update_map()
+        elif event.key() == 61:
+            self.map_spn += 1
+            self.update_map()
+        print(self.map_spn)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
