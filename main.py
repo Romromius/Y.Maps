@@ -13,18 +13,25 @@ class Map(QMainWindow):
         self.speaker = Speaker()
         self.setWindowTitle("картка")
         self.setFixedSize(600, 600)
+        self.sp = ["map", "sat", "sat,skl"]
 
         self.img = QLabel(self)
-        self.img.setText('Загрузка')
+        self.img.setText('Загрузка/Введите новый запрос')
         self.img.resize(600, 600)
 
         self.search_place = QLineEdit(self)
         self.search_place.setGeometry(100, 20, 300, 30)
+        self.search_place.clearFocus()
 
         self.search_btn = QPushButton(self)
         self.search_btn.setGeometry(420, 10, 50, 50)
         self.search_btn.setText("""_\n( _ )\n\\""")
         self.search_btn.clicked.connect(self.search)
+
+        self.view_btn = QPushButton(self)
+        self.view_btn.setGeometry(500, 10, 50, 50)
+        self.view_btn.setText("map/1")
+        self.view_btn.clicked.connect(self.switch)
 
         self.map_move_x = 0
         self.map_move_y = 0
@@ -32,7 +39,11 @@ class Map(QMainWindow):
         self.map_spn = 1
         self.map_file = None
         self.coords = (0, 0)
-        self.search('Vladivostok')
+        # self.search('Vladivostok')
+
+    def switch(self):
+        view = int(self.view_btn.text().split("/")[1])
+        self.view_btn.setText(self.sp[view ^ 1 ^ 2 ^ 3] + f"/{(view + 1) % 3}")
 
     def search(self, toponym):
         try:
@@ -56,8 +67,9 @@ class Map(QMainWindow):
         self.update_map()
 
     def update_map(self):
+        view = self.view_btn.text().split('/')[0]
         x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l=map&z=15&l=map&pt={self.coords[0]},{self.coords[1]},pm2rdm"
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l={view}&z=15&l=map&pt={self.coords[0]},{self.coords[1]},pm2rdm"
         try:
             response = requests.get(map_request)
         except requests.exceptions.ConnectionError:
