@@ -32,7 +32,7 @@ class Map(QMainWindow):
             coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()
         except IndexError:
             self.speaker.say('bad beep', 'error', 'search error')
-            self.img.setText('Ошибка!')
+            self.img.setText('Ошибка поиска!')
             return
         except requests.exceptions.ConnectionError:
             self.speaker.say('bad beep', 'error', 'no net')
@@ -56,8 +56,8 @@ class Map(QMainWindow):
             sys.exit(1)
         with open(self.map_file, "wb") as file:
             file.write(response.content)
-        if int(random.random()):
-            self.speaker.say('request get')
+        if random.randint(0, 1):
+            self.speaker.say('good beep', 'request get')
         self.img.setPixmap(QPixmap(self.map_file))
 
     def keyPressEvent(self, event):
