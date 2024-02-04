@@ -15,13 +15,15 @@ class Speaker:
 
     def speak(self):
         while self.busy:
-            if not self.sequence:
+            if not self.sequence :
                 return
             pass
         self.busy = True
         word = 'ERROR'
-        while self.sequence:
+        while self.sequence or pygame.mixer.Channel(0).get_busy():
             if not pygame.mixer.Channel(0).get_busy():
+                if not self.sequence:
+                    break
                 try:
                     word = self.sequence.pop(0)
                     print('Saying', word)
@@ -47,7 +49,5 @@ class Speaker:
 if __name__ == '__main__':
     speaker = Speaker()
     print('Hi')
-    speaker.say('error', 'no net')
-    speaker.say('glory to the watermelon')
-    speaker.say('note', 'taunt')
-    input()
+    speaker.say('bad beep', 'taunt', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep',
+                'bad beep', 'note', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep')

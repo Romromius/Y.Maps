@@ -1,4 +1,5 @@
 import os
+import random
 import sys
 import PyQt5.QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLabel
@@ -34,7 +35,11 @@ class Map(QMainWindow):
             coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()
         except IndexError:
             self.speaker.say('bad beep', 'error', 'search error')
-            self.img.setText('Ошибка!')
+            self.img.setText('Ошибка поиска!')
+            return
+        except requests.exceptions.ConnectionError:
+            self.speaker.say('bad beep', 'error', 'no net')
+            self.img.setText('Нет сети!')
             return
 
         self.map_file = "map.png"
@@ -45,20 +50,26 @@ class Map(QMainWindow):
     def update_map(self):
         x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l=map"
-        response = requests.get(map_request)
+        try:
+            response = requests.get(map_request)
+        except requests.exceptions.ConnectionError:
+            self.speaker.say('bad beep', 'error', 'no net')
+            self.img.setText('Нет сети!')
+            return
         if not response:
             sys.exit(1)
         with open(self.map_file, "wb") as file:
             file.write(response.content)
-        self.speaker.say('bad beep', 'request get')
+        if random.randint(0, 1):
+            self.speaker.say('good beep', 'request get')
         self.img.setPixmap(QPixmap(self.map_file))
 
     def keyPressEvent(self, event):
         if event.key() == 45:
-            self.map_spn -= 0.7
+            self.map_spn -= 1
             self.update_map()
         elif event.key() == 61:
-            self.map_spn += 0.7
+            self.map_spn += 1
             self.update_map()
         elif event.key() == 16777235:  # up
             self.map_move_y += 0.25 + self.map_spn
