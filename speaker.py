@@ -49,4 +49,5 @@ class Speaker:
 if __name__ == '__main__':
     speaker = Speaker()
     print('Hi')
-    speaker.say('bad beep', 'taunt', 'bad beep')
+    speaker.say('bad beep', 'taunt', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep',
+                'bad beep', 'note', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep')
