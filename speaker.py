@@ -22,6 +22,8 @@ class Speaker:
         word = 'ERROR'
         while self.sequence or pygame.mixer.Channel(0).get_busy():
             if not pygame.mixer.Channel(0).get_busy():
+                if not self.sequence:
+                    break
                 try:
                     word = self.sequence.pop(0)
                     print('Saying', word)
@@ -47,4 +49,4 @@ class Speaker:
 if __name__ == '__main__':
     speaker = Speaker()
     print('Hi')
-    speaker.say('bad beep', 'bad beep', 'taunt')
+    speaker.say('bad beep', 'taunt', 'bad beep')
