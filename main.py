@@ -14,8 +14,11 @@ class Map(QMainWindow):
         self.setWindowTitle("картка")
         self.setFixedSize(600, 600)
 
+        self.sp = ["map", "sat", "sat,skl"]
+        self.view = "map"
+
         self.img = QLabel(self)
-        self.img.setText('Загрузка')
+        self.img.setText('Загрузка/Введите новый запрос')
         self.img.resize(600, 600)
 
         self.search_place = QLineEdit(self)
@@ -26,17 +29,31 @@ class Map(QMainWindow):
         self.search_btn.setText("""_\n( _ )\n\\""")
         self.search_btn.clicked.connect(self.search)
 
+        self.view_btn = QPushButton(self)
+        self.view_btn.setGeometry(500, 10, 50, 50)
+        self.view_btn.setText("map/1")
+        self.view_btn.clicked.connect(self.switch)
+
         self.map_move_x = 0
         self.map_move_y = 0
 
         self.map_spn = 1
         self.map_file = None
         self.coords = (0, 0)
-        self.search('Vladivostok')
+        # self.search('Vladivostok')
+
+    def switch(self):
+        view = int(self.view_btn.text().split("/")[1])
+        self.view_btn.setText(self.sp[view ^ 1 ^ 2 ^ 3] + f"/{(view + 1) % 3}")
+        self.view = self.view_btn.text().split('/')[0]
+        self.update_map()
 
     def search(self, toponym):
         try:
-            toponym = toponym if len(self.search_place.text()) == 0 else "+".join(self.search_place.text().split())
+            if len(self.search_place.text()) == 0:
+                toponym = toponym
+            else:
+                toponym = "+".join(self.search_place.text().split())
             geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={toponym}&format=json"
             response = requests.get(geocoder_request)
             json_response = response.json()
@@ -49,15 +66,13 @@ class Map(QMainWindow):
             self.speaker.say('bad beep', 'error', 'no net', important=True)
             self.img.setText('Нет сети!')
             return
-
         self.map_file = "map.png"
-
         self.coords = coords
         self.update_map()
 
     def update_map(self):
         x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&z={self.map_spn}&l=map"
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l={self.view}&z=15&pt={self.coords[0]},{self.coords[1]},pm2rdm"
         try:
             response = requests.get(map_request)
         except requests.exceptions.ConnectionError:
@@ -93,8 +108,6 @@ class Map(QMainWindow):
             self.speaker.say('bad beep')
             self.map_spn = 21
             return
-
-
         self.update_map()
         print(self.map_spn)
 
