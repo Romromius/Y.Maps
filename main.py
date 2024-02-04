@@ -1,7 +1,6 @@
 import os
 import random
 import sys
-import PyQt5.QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLabel
 import requests
 from PyQt5.QtGui import QPixmap
