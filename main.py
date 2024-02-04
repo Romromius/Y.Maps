@@ -12,11 +12,19 @@ class Map(QMainWindow):
         super().__init__()
         self.speaker = Speaker()
         self.setWindowTitle("картка")
-        self.setGeometry(350, 350, 600, 600)
+        self.setFixedSize(600, 600)
 
         self.img = QLabel(self)
         self.img.setText('Загрузка')
         self.img.resize(600, 600)
+
+        self.search_place = QLineEdit(self)
+        self.search_place.setGeometry(100, 20, 300, 30)
+
+        self.search_btn = QPushButton(self)
+        self.search_btn.setGeometry(420, 10, 50, 50)
+        self.search_btn.setText("""_\n( _ )\n\\""")
+        self.search_btn.clicked.connect(self.search)
 
         self.map_move_x = 0
         self.map_move_y = 0
@@ -28,6 +36,7 @@ class Map(QMainWindow):
 
     def search(self, toponym):
         try:
+            toponym = toponym if len(self.search_place.text()) == 0 else "+".join(self.search_place.text().split())
             geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={toponym}&format=json"
             response = requests.get(geocoder_request)
             json_response = response.json()
