@@ -42,11 +42,11 @@ class Map(QMainWindow):
             json_response = response.json()
             coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()
         except IndexError:
-            self.speaker.say('bad beep', 'error', 'search error')
+            self.speaker.say('bad beep', 'error', 'search error', important=True)
             self.img.setText('Ошибка поиска!')
             return
         except requests.exceptions.ConnectionError:
-            self.speaker.say('bad beep', 'error', 'no net')
+            self.speaker.say('bad beep', 'error', 'no net', important=True)
             self.img.setText('Нет сети!')
             return
 
@@ -57,40 +57,45 @@ class Map(QMainWindow):
 
     def update_map(self):
         x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l=map&z=15&l=map&pt={self.coords[0]},{self.coords[1]},pm2rdm"
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&z={self.map_spn}&l=map"
         try:
             response = requests.get(map_request)
         except requests.exceptions.ConnectionError:
-            self.speaker.say('bad beep', 'error', 'no net')
+            self.speaker.say('bad beep', 'error', 'no net', important=True)
             self.img.setText('Нет сети!')
             return
         if not response:
             sys.exit(1)
         with open(self.map_file, "wb") as file:
             file.write(response.content)
-        if random.randint(0, 1):
-            self.speaker.say('good beep', 'request get')
+        if random.random() < 0.1:
+            self.speaker.say('request get')
         self.img.setPixmap(QPixmap(self.map_file))
 
     def keyPressEvent(self, event):
         if event.key() == 45:
             self.map_spn -= 1
-            self.update_map()
         elif event.key() == 61:
             self.map_spn += 1
-            self.update_map()
         elif event.key() == 16777235:  # up
             self.map_move_y += 0.25 + self.map_spn
-            self.update_map()
         elif event.key() == 16777237:  # down
             self.map_move_y -= 0.25 + self.map_spn
-            self.update_map()
         elif event.key() == 16777234:  # left
             self.map_move_x -= 0.25 + self.map_spn
-            self.update_map()
         elif event.key() == 16777236:  # right
             self.map_move_x += 0.25 + self.map_spn
-            self.update_map()
+        if self.map_spn == 0:
+            self.speaker.say('bad beep')
+            self.map_spn = 1
+            return
+        elif self.map_spn == 22:
+            self.speaker.say('bad beep')
+            self.map_spn = 21
+            return
+
+
+        self.update_map()
         print(self.map_spn)
 
 
