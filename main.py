@@ -18,6 +18,9 @@ class Map(QMainWindow):
         self.img.setText('Загрузка')
         self.img.resize(600, 600)
 
+        self.map_move_x = 0
+        self.map_move_y = 0
+
         self.map_spn = 1
         self.map_file = None
         self.coords = (0, 0)
@@ -40,7 +43,8 @@ class Map(QMainWindow):
         self.update_map()
 
     def update_map(self):
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.coords[0]},{self.coords[1]}&spn={self.map_spn},{self.map_spn}&l=map"
+        x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
+        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l=map"
         response = requests.get(map_request)
         if not response:
             sys.exit(1)
@@ -51,10 +55,22 @@ class Map(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == 45:
-            self.map_spn -= 1
+            self.map_spn -= 0.7
             self.update_map()
         elif event.key() == 61:
-            self.map_spn += 1
+            self.map_spn += 0.7
+            self.update_map()
+        elif event.key() == 16777235:  # up
+            self.map_move_y += 0.25 + self.map_spn
+            self.update_map()
+        elif event.key() == 16777237:  # down
+            self.map_move_y -= 0.25 + self.map_spn
+            self.update_map()
+        elif event.key() == 16777234:  # left
+            self.map_move_x -= 0.25 + self.map_spn
+            self.update_map()
+        elif event.key() == 16777236:  # right
+            self.map_move_x += 0.25 + self.map_spn
             self.update_map()
         print(self.map_spn)
 
