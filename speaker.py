@@ -1,8 +1,6 @@
 import threading
 import os
 import random
-import sys
-import time
 
 import pygame
 
@@ -15,7 +13,7 @@ class Speaker:
 
     def speak(self):
         while self.busy:
-            if not self.sequence :
+            if not self.sequence:
                 return
             pass
         self.busy = True
@@ -49,5 +47,7 @@ class Speaker:
 if __name__ == '__main__':
     speaker = Speaker()
     print('Hi')
-    speaker.say('bad beep', 'taunt', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep',
-                'bad beep', 'note', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep', 'bad beep')
+    while True:
+        word = input().split(', ')
+        print(word)
+        speaker.say(*word)
