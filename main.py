@@ -1,4 +1,5 @@
 import os
+import random
 import sys
 import PyQt5.QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLabel
@@ -33,6 +34,10 @@ class Map(QMainWindow):
             self.speaker.say('bad beep', 'error', 'search error')
             self.img.setText('Ошибка!')
             return
+        except requests.exceptions.ConnectionError:
+            self.speaker.say('bad beep', 'error', 'no net')
+            self.img.setText('Нет сети!')
+            return
 
         self.map_file = "map.png"
 
@@ -41,12 +46,18 @@ class Map(QMainWindow):
 
     def update_map(self):
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.coords[0]},{self.coords[1]}&spn={self.map_spn},{self.map_spn}&l=map"
-        response = requests.get(map_request)
+        try:
+            response = requests.get(map_request)
+        except requests.exceptions.ConnectionError:
+            self.speaker.say('bad beep', 'error', 'no net')
+            self.img.setText('Нет сети!')
+            return
         if not response:
             sys.exit(1)
         with open(self.map_file, "wb") as file:
             file.write(response.content)
-        self.speaker.say('bad beep', 'request get')
+        if int(random.random()):
+            self.speaker.say('request get')
         self.img.setPixmap(QPixmap(self.map_file))
 
     def keyPressEvent(self, event):
