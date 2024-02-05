@@ -4,6 +4,7 @@ import random
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLabel
 import requests
+from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap
 from speaker import Speaker
 
@@ -13,36 +14,45 @@ class Map(QMainWindow):
         super().__init__()
         self.speaker = Speaker()
         self.setWindowTitle("картка")
-        self.setFixedSize(600, 600)
+        self.setFixedSize(600, 520)
 
         self.sp = ["map", "sat", "sat,skl"]
         self.view = "map"
 
         self.img = QLabel(self)
         self.img.setText('Загрузка/Введите новый запрос')
+        self.img.setAlignment(QtCore.Qt.AlignCenter)
         self.img.resize(600, 600)
 
         self.search_place = QLineEdit(self)
-        self.search_place.setGeometry(60, 0, 300, 30)
+        self.search_place.setGeometry(5, 0, 330, 30)
         self.search_place.returnPressed.connect(lambda: self.search(self.search_place.text()))
 
-        self.search_data = QLineEdit(self)
-        self.search_data.setGeometry(60, 35, 300, 30)
-        self.search_data.setEnabled(False)
+        self.search_data = QLabel(self)
+        self.search_data.setGeometry(5, 30, 330, 30)
         self.search_data.setText("Adress:")
 
         self.search_btn = QPushButton(self)
-        self.search_btn.setGeometry(420, 10, 50, 50)
+        self.search_btn.setGeometry(370, 10, 50, 50)
         self.search_btn.setText("""_\n( _ )\n\\""")
         self.search_btn.clicked.connect(self.search)
 
         self.view_btn = QPushButton(self)
-        self.view_btn.setGeometry(470, 10, 50, 50)
+        self.view_btn.setGeometry(440, 10, 50, 50)
         self.view_btn.setText("map/1")
         self.view_btn.clicked.connect(self.switch)
 
+        # self.index_lbl = QLabel(self)
+        # self.index_lbl.setGeometry(520, 60, 50, 20)
+        # self.index_lbl.setText("On")
+        #
+        # self.index_btn = QPushButton(self)
+        # self.index_btn.setGeometry(500, 10, 50, 50)
+        # self.index_btn.setText("Index")
+        # self.index_btn.clicked.connect(self.switch_index)
+
         self.clear_btn = QPushButton(self)
-        self.clear_btn.setGeometry(520, 10, 50, 50)
+        self.clear_btn.setGeometry(550, 10, 50, 50)
         self.clear_btn.setText("clear")
         self.clear_btn.clicked.connect(self.clear)
 
@@ -55,6 +65,11 @@ class Map(QMainWindow):
         self.map_file = None
 
         # self.search('Vladivostok')
+    # def switch_index(self):
+    #     if self.index_lbl.text() == "On":
+    #         self.index_lbl.setText("Off")
+    #     else:
+    #         self.index_lbl.setText("On")
 
     def clear(self):
         self.clear_fl = 1
