@@ -95,7 +95,7 @@ class Map(QMainWindow):
             geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={toponym}&format=json"
             response = requests.get(geocoder_request)
             json_response = response.json()
-            self.coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()
+            self.coords = [float(i) for i in json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()]
             self.point = self.coords
             data = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["formatted"]
             self.search_data.setText(f"Adress: {data}")
@@ -108,6 +108,7 @@ class Map(QMainWindow):
             self.img.setText('Нет сети!')
             return
         self.map_file = "map.png"
+        self.speaker.say('neutral beep', 'request get')
 
         self.update_map()
 
@@ -116,7 +117,7 @@ class Map(QMainWindow):
                   "l": self.view,
                   "z": self.map_spn}
         if self.point:
-            params["pt"] = f'{self.point[0]},{self.point[1]},pm2rdm'
+            params["pt"] = f'{self.point[0]},{self.point[1]},ya_ru'
         try:
             response = requests.get(f'http://static-maps.yandex.ru/1.x/', params=params)
             # response = requests.get(f'http://static-maps.yandex.ru/1.x/?ll={x},{y}&l={self.view}&z={self.map_spn}&pt={self.point[0]},{self.point[1]},pm2rdm', params=params)
@@ -128,8 +129,6 @@ class Map(QMainWindow):
             sys.exit(1)
         with open('map.png', "wb") as file:
             file.write(response.content)
-        if random.random() < 0.05:
-            self.speaker.say('request get')
         self.img.setPixmap(QPixmap(self.map_file))
 
     def mousePressEvent(self, a0):
@@ -142,13 +141,13 @@ class Map(QMainWindow):
             case 61:
                 self.map_spn += 1
             case 16777235:  # up
-                self.y += 10
+                self.coords[1] += 10
             case 16777237:  # down
-                self.y -= 10
+                self.coords[1] -= 10
             case 16777234:  # left
-                self.x -= 10
+                self.coords[0] -= 10
             case 16777236:  # right
-                self.x += 10
+                self.coords[0] += 10
             case _:
                 return
 
