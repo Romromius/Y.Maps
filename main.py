@@ -29,8 +29,9 @@ class Map(QMainWindow):
         self.search_place.returnPressed.connect(lambda: self.search(self.search_place.text()))
 
         self.search_data = QLabel(self)
-        self.search_data.setGeometry(5, 30, 330, 30)
+        self.search_data.setGeometry(15, 30, 330, 30)
         self.search_data.setText("Adress:")
+        self.search_data.setWordWrap(True)
 
         self.search_btn = QPushButton(self)
         self.search_btn.setGeometry(370, 10, 50, 50)
@@ -42,14 +43,14 @@ class Map(QMainWindow):
         self.view_btn.setText("map/1")
         self.view_btn.clicked.connect(self.switch)
 
-        # self.index_lbl = QLabel(self)
-        # self.index_lbl.setGeometry(520, 60, 50, 20)
-        # self.index_lbl.setText("On")
-        #
-        # self.index_btn = QPushButton(self)
-        # self.index_btn.setGeometry(500, 10, 50, 50)
-        # self.index_btn.setText("Index")
-        # self.index_btn.clicked.connect(self.switch_index)
+        self.index_lbl = QLabel(self)
+        self.index_lbl.setGeometry(520, 60, 50, 20)
+        self.index_lbl.setText("On")
+
+        self.index_btn = QPushButton(self)
+        self.index_btn.setGeometry(500, 10, 50, 50)
+        self.index_btn.setText("Index")
+        self.index_btn.clicked.connect(self.switch_index)
 
         self.clear_btn = QPushButton(self)
         self.clear_btn.setGeometry(550, 10, 50, 50)
@@ -58,6 +59,9 @@ class Map(QMainWindow):
 
         self.clear_fl = 0
         self.point = None
+        self.show_index = True
+        self.searched_adress = ''
+        self.searched_index = ''
 
         self.coords = (0, 0)
 
@@ -65,11 +69,18 @@ class Map(QMainWindow):
         self.map_file = None
 
         # self.search('Vladivostok')
-    # def switch_index(self):
-    #     if self.index_lbl.text() == "On":
-    #         self.index_lbl.setText("Off")
-    #     else:
-    #         self.index_lbl.setText("On")
+
+    def switch_index(self):
+        self.show_index = not self.show_index
+        match self.show_index:
+            case True:
+                self.index_lbl.setText('On')
+                self.speaker.say('good beep')
+            case False:
+                self.index_lbl.setText('Off')
+                self.speaker.say('neutral beep')
+        self.update_map()
+
 
     def clear(self):
         self.clear_fl = 1
@@ -98,7 +109,14 @@ class Map(QMainWindow):
             self.coords = [float(i) for i in json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()]
             self.point = self.coords
             data = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["formatted"]
-            self.search_data.setText(f"Adress: {data}")
+            self.searched_adress = f"Adress: {data}"
+            try:
+                self.searched_index = json_response['response']['GeoObjectCollection']['featureMember'][0][
+                    'GeoObject']['metaDataProperty']['GeocoderMetaData']['Address'][
+                    'postal_code']
+            except KeyError:
+                self.searched_index = ''
+
         except IndexError:
             self.speaker.say('bad beep', 'error', 'search error', important=True)
             self.img.setText('Ошибка поиска!')
@@ -130,6 +148,20 @@ class Map(QMainWindow):
         with open('map.png', "wb") as file:
             file.write(response.content)
         self.img.setPixmap(QPixmap(self.map_file))
+
+        # if self.show_index:
+        #     try:
+        #         self.search_data.setText(self.searched_adress + ', ' +
+        #                                  self.searched_index)
+        #     except KeyError:
+        #         self.searched_index = ''
+        # else:
+        #     self.searched_index = ''
+
+        if self.show_index and self.searched_index:
+            self.search_data.setText(f'{self.searched_adress}, {self.searched_index}')
+        else:
+            self.search_data.setText(self.searched_adress)
 
     def mousePressEvent(self, a0):
         self.search_place.clearFocus()
