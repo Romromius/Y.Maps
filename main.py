@@ -1,3 +1,4 @@
+import json
 import os
 import random
 import sys
@@ -60,6 +61,7 @@ class Map(QMainWindow):
             response = requests.get(geocoder_request)
             json_response = response.json()
             coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()
+            self.point = coords
         except IndexError:
             self.speaker.say('bad beep', 'error', 'search error', important=True)
             self.img.setText('Ошибка поиска!')
@@ -70,23 +72,20 @@ class Map(QMainWindow):
             return
 
         self.map_file = "map.png"
-        print(response.text)
-        quit()
 
         self.coords = coords
         self.update_map()
 
     def update_map(self):
         x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
-        params = {"ll": (x, y),
+        params = {"ll": f"{x},{y}",
                   "l": self.view,
-                  "z": self.map_spn,
-                  }
+                  "z": self.map_spn}
         if self.point:
-            params["pt"] = self.point
-        map_request = f"?ll={x},{y}&l={self.view}&z={self.map_spn}&pt={self.coords[0]},{self.coords[1]},pm2rdm"
+            params["pt"] = f'{self.point[0]},{self.point[1]},pm2rdm'
         try:
-            response = requests.get('http://static-maps.yandex.ru/1.x/', params=params)
+            response = requests.get(f'http://static-maps.yandex.ru/1.x/', params=params)
+            # response = requests.get(f'http://static-maps.yandex.ru/1.x/?ll={x},{y}&l={self.view}&z={self.map_spn}&pt={self.point[0]},{self.point[1]},pm2rdm', params=params)
         except requests.exceptions.ConnectionError:
             self.speaker.say('bad beep', 'error', 'no net', important=True)
             self.img.setText('Нет сети!')
