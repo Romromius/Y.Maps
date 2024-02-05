@@ -1,3 +1,4 @@
+import json
 import os
 import random
 import sys
@@ -23,6 +24,7 @@ class Map(QMainWindow):
 
         self.search_place = QLineEdit(self)
         self.search_place.setGeometry(60, 0, 300, 30)
+        self.search_place.returnPressed.connect(lambda: self.search(self.search_place.text()))
 
         self.search_data = QLineEdit(self)
         self.search_data.setGeometry(60, 35, 300, 30)
@@ -45,18 +47,19 @@ class Map(QMainWindow):
         self.clear_btn.clicked.connect(self.clear)
 
         self.clear_fl = 0
+        self.point = None
 
-        self.map_move_x = 0
-        self.map_move_y = 0
+        self.coords = (0, 0)
 
         self.map_spn = 1
         self.map_file = None
-        self.coords = (0, 0)
+
         # self.search('Vladivostok')
 
     def clear(self):
         self.clear_fl = 1
         self.search_data.setText(f"Adress:")
+        self.point = None
         self.update_map()
 
     def switch(self):
@@ -69,7 +72,6 @@ class Map(QMainWindow):
             pass
 
     def search(self, toponym):
-        self.clear_fl = 0
         try:
             if len(self.search_place.text()) == 0:
                 toponym = toponym
@@ -78,7 +80,8 @@ class Map(QMainWindow):
             geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={toponym}&format=json"
             response = requests.get(geocoder_request)
             json_response = response.json()
-            coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()
+            self.coords = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()
+            self.point = self.coords
             data = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["formatted"]
             self.search_data.setText(f"Adress: {data}")
         except IndexError:
@@ -90,53 +93,61 @@ class Map(QMainWindow):
             self.img.setText('Нет сети!')
             return
         self.map_file = "map.png"
-        self.coords = coords
+
         self.update_map()
 
     def update_map(self):
-        x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
-        if self.clear_fl:
-            map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l={self.view}"
-        else:
-            map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l={self.view}&z=15&pt={self.coords[0]},{self.coords[1]},pm2rdm"
+        params = {"ll": f"{self.coords[0]},{self.coords[1]}",
+                  "l": self.view,
+                  "z": self.map_spn}
+        if self.point:
+            params["pt"] = f'{self.point[0]},{self.point[1]},pm2rdm'
         try:
-            response = requests.get(map_request)
+            response = requests.get(f'http://static-maps.yandex.ru/1.x/', params=params)
+            # response = requests.get(f'http://static-maps.yandex.ru/1.x/?ll={x},{y}&l={self.view}&z={self.map_spn}&pt={self.point[0]},{self.point[1]},pm2rdm', params=params)
         except requests.exceptions.ConnectionError:
             self.speaker.say('bad beep', 'error', 'no net', important=True)
             self.img.setText('Нет сети!')
             return
         if not response:
             sys.exit(1)
-        with open(self.map_file, "wb") as file:
+        with open('map.png', "wb") as file:
             file.write(response.content)
-        if random.random() < 0.1:
+        if random.random() < 0.05:
             self.speaker.say('request get')
         self.img.setPixmap(QPixmap(self.map_file))
-        self.marker = "&z=15&pt={self.coords[0]},{self.coords[1]},pm2rdm"
+
+    def mousePressEvent(self, a0):
+        self.search_place.clearFocus()
 
     def keyPressEvent(self, event):
-        if event.key() == 45:
-            self.map_spn -= 1
-        elif event.key() == 61:
-            self.map_spn += 1
-        elif event.key() == 16777235:  # up
-            self.map_move_y += 0.25 + self.map_spn
-        elif event.key() == 16777237:  # down
-            self.map_move_y -= 0.25 + self.map_spn
-        elif event.key() == 16777234:  # left
-            self.map_move_x -= 0.25 + self.map_spn
-        elif event.key() == 16777236:  # right
-            self.map_move_x += 0.25 + self.map_spn
-        if self.map_spn == 0:
+        match event.key():
+            case 45:
+                self.map_spn -= 1
+            case 61:
+                self.map_spn += 1
+            case 16777235:  # up
+                self.y += 10
+            case 16777237:  # down
+                self.y -= 10
+            case 16777234:  # left
+                self.x -= 10
+            case 16777236:  # right
+                self.x += 10
+            case _:
+                return
+
+        if self.map_spn <= 0:
             self.speaker.say('bad beep')
             self.map_spn = 1
             return
-        elif self.map_spn == 22:
+        elif self.map_spn >= 22:
             self.speaker.say('bad beep')
             self.map_spn = 21
             return
+
         self.update_map()
-        print(self.map_spn)
+        print(self.coords)
 
 
 if __name__ == '__main__':
