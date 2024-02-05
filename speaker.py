@@ -46,7 +46,9 @@ class Speaker:
 
 if __name__ == '__main__':
     speaker = Speaker()
-    print('Hi')
+    print('This is speaker. Enter prompts connected by ", "')
+    print('Available prompts:', ', '.join(os.listdir('speaker')))
+
     while True:
         word = input().split(', ')
         print(word)
