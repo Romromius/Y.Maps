@@ -23,14 +23,16 @@ class Map(QMainWindow):
 
         self.search_place = QLineEdit(self)
         self.search_place.setGeometry(100, 20, 300, 30)
+        self.search_place.returnPressed.connect(lambda: self.search(self.search_place.text()))
+        self.search_place.returnPressed.connect(self.search_place.clearFocus)
 
         self.search_btn = QPushButton(self)
-        self.search_btn.setGeometry(420, 10, 50, 50)
+        self.search_btn.setGeometry(410, 10, 50, 50)
         self.search_btn.setText("""_\n( _ )\n\\""")
         self.search_btn.clicked.connect(self.search)
 
         self.view_btn = QPushButton(self)
-        self.view_btn.setGeometry(500, 10, 50, 50)
+        self.view_btn.setGeometry(470, 10, 100, 50)
         self.view_btn.setText("map/1")
         self.view_btn.clicked.connect(self.switch)
 
@@ -40,7 +42,7 @@ class Map(QMainWindow):
         self.map_spn = 1
         self.map_file = None
         self.coords = (0, 0)
-        # self.search('Vladivostok')
+        self.point = None
 
     def switch(self):
         view = int(self.view_btn.text().split("/")[1])
@@ -66,48 +68,66 @@ class Map(QMainWindow):
             self.speaker.say('bad beep', 'error', 'no net', important=True)
             self.img.setText('Нет сети!')
             return
+
         self.map_file = "map.png"
+        print(response.text)
+        quit()
+
         self.coords = coords
         self.update_map()
 
     def update_map(self):
         x, y = float(self.coords[0]) + self.map_move_x, float(self.coords[1]) + self.map_move_y
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={x},{y}&spn={self.map_spn},{self.map_spn}&l={self.view}&z=15&pt={self.coords[0]},{self.coords[1]},pm2rdm"
+        params = {"ll": (x, y),
+                  "l": self.view,
+                  "z": self.map_spn,
+                  }
+        if self.point:
+            params["pt"] = self.point
+        map_request = f"?ll={x},{y}&l={self.view}&z={self.map_spn}&pt={self.coords[0]},{self.coords[1]},pm2rdm"
         try:
-            response = requests.get(map_request)
+            response = requests.get('http://static-maps.yandex.ru/1.x/', params=params)
         except requests.exceptions.ConnectionError:
             self.speaker.say('bad beep', 'error', 'no net', important=True)
             self.img.setText('Нет сети!')
             return
         if not response:
             sys.exit(1)
-        with open(self.map_file, "wb") as file:
+        with open('map.png', "wb") as file:
             file.write(response.content)
         if random.random() < 0.1:
             self.speaker.say('request get')
         self.img.setPixmap(QPixmap(self.map_file))
 
+    def mousePressEvent(self, a0):
+        self.search_place.clearFocus()
+
     def keyPressEvent(self, event):
-        if event.key() == 45:
-            self.map_spn -= 1
-        elif event.key() == 61:
-            self.map_spn += 1
-        elif event.key() == 16777235:  # up
-            self.map_move_y += 0.25 + self.map_spn
-        elif event.key() == 16777237:  # down
-            self.map_move_y -= 0.25 + self.map_spn
-        elif event.key() == 16777234:  # left
-            self.map_move_x -= 0.25 + self.map_spn
-        elif event.key() == 16777236:  # right
-            self.map_move_x += 0.25 + self.map_spn
-        if self.map_spn == 0:
+        match event.key():
+            case 45:
+                self.map_spn -= 1
+            case 61:
+                self.map_spn += 1
+            case 16777235:  # up
+                self.map_move_y += 0.25 + self.map_spn
+            case 16777237:  # down
+                self.map_move_y -= 0.25 + self.map_spn
+            case 16777234:  # left
+                self.map_move_x -= 0.25 + self.map_spn
+            case 16777236:  # right
+                self.map_move_x += 0.25 + self.map_spn
+            case _:
+                return
+
+        if self.map_spn <= 0:
             self.speaker.say('bad beep')
             self.map_spn = 1
             return
-        elif self.map_spn == 22:
+        elif self.map_spn >= 22:
             self.speaker.say('bad beep')
             self.map_spn = 21
             return
+
         self.update_map()
         print(self.map_spn)
 
