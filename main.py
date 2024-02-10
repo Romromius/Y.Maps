@@ -41,6 +41,12 @@ class Map(QMainWindow):
         self.view_btn.setText("map/1")
         self.view_btn.clicked.connect(self.switch)
 
+        self.clear_btn = QPushButton(self)
+        self.clear_btn.setGeometry(550, 10, 50, 50)
+        self.clear_btn.setText("clear")
+        self.clear_btn.clicked.connect(self.clear)
+
+        self.clear_fl = 0
         self.point = None
 
         self.coords = (0, 0)
@@ -49,6 +55,11 @@ class Map(QMainWindow):
         self.map_file = None
 
         self.search('Vladivostok')
+
+    def clear(self):
+        self.clear_fl = 1
+        self.point = None
+        self.update_map()
 
     def switch(self):
         view = int(self.view_btn.text().split("/")[1])
@@ -68,7 +79,9 @@ class Map(QMainWindow):
             geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={toponym}&format=json"
             response = requests.get(geocoder_request)
             json_response = response.json()
-            self.coords = [float(i) for i in json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()]
+            self.coords = [float(i) for i in
+                           json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"][
+                               "pos"].split()]
             self.point = copy.copy(self.coords)
 
         except IndexError:
@@ -106,6 +119,7 @@ class Map(QMainWindow):
     def mousePressEvent(self, a0):
         self.search_place.clearFocus()
         self.view_btn.clearFocus()
+        self.clear_btn.clearFocus()
 
     def keyPressEvent(self, event):
         match event.key():
