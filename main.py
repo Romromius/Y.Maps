@@ -27,14 +27,21 @@ class Map(QMainWindow):
         self.img.setAlignment(QtCore.Qt.AlignCenter)
         self.img.resize(600, 600)
 
+        self.search_place = QLineEdit(self)
+        self.search_place.setGeometry(5, 0, 330, 30)
+        self.search_place.returnPressed.connect(lambda: self.search(self.search_place.text()))
+
+        self.search_btn = QPushButton(self)
+        self.search_btn.setGeometry(370, 10, 50, 50)
+        self.search_btn.setText("""_\n( _ )\n\\""")
+        self.search_btn.clicked.connect(self.search)
+
         self.view_btn = QPushButton(self)
         self.view_btn.setGeometry(440, 10, 50, 50)
         self.view_btn.setText("map/1")
         self.view_btn.clicked.connect(self.switch)
 
-        self.show_index = True
-        self.searched_adress = ''
-        self.searched_index = ''
+        self.point = None
 
         self.coords = (0, 0)
 
@@ -54,10 +61,15 @@ class Map(QMainWindow):
 
     def search(self, toponym):
         try:
+            if len(self.search_place.text()) == 0:
+                toponym = toponym
+            else:
+                toponym = "+".join(self.search_place.text().split())
             geocoder_request = f"http://geocode-maps.yandex.ru/1.x/?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={toponym}&format=json"
             response = requests.get(geocoder_request)
             json_response = response.json()
             self.coords = [float(i) for i in json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()]
+            self.point = copy.copy(self.coords)
 
         except IndexError:
             self.speaker.say('bad beep', 'search error', important=True)
@@ -73,9 +85,12 @@ class Map(QMainWindow):
         self.update_map()
 
     def update_map(self):
+        print(self.point)
         params = {"ll": f"{self.coords[0]},{self.coords[1]}",
                   "l": self.view,
                   "z": self.map_spn}
+        if self.point:
+            params["pt"] = f'{self.point[0]},{self.point[1]},ya_en'
         try:
             response = requests.get(f'http://static-maps.yandex.ru/1.x/', params=params)
         except requests.exceptions.ConnectionError:
@@ -89,6 +104,7 @@ class Map(QMainWindow):
         self.img.setPixmap(QPixmap(self.map_file))
 
     def mousePressEvent(self, a0):
+        self.search_place.clearFocus()
         self.view_btn.clearFocus()
 
     def keyPressEvent(self, event):
