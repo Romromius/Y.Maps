@@ -82,6 +82,7 @@ class Map(QMainWindow):
             case False:
                 self.index_lbl.setText('Off')
                 self.speaker.say('neutral beep')
+        self.update_map()
 
     def clear(self):
         self.clear_fl = 1
