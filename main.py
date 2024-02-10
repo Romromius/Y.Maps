@@ -1,3 +1,4 @@
+import copy
 import json
 import os
 import random
@@ -7,6 +8,8 @@ import requests
 from PyQt5 import QtCore
 from PyQt5.QtGui import QPixmap
 from speaker import Speaker
+
+movas = [90, 70, 30, 10, 3, 2, 1, 1, 0.5, 0.3, 0.2, 0.07, 0.03, 0.01, 0.01, 0.005, 0.0025, 0.00125, 0.0005, 0.0002, 0]
 
 
 class Map(QMainWindow):
@@ -68,7 +71,7 @@ class Map(QMainWindow):
         self.map_spn = 1
         self.map_file = None
 
-        # self.search('Vladivostok')
+        self.search('Vladivostok')
 
     def switch_index(self):
         self.show_index = not self.show_index
@@ -107,7 +110,7 @@ class Map(QMainWindow):
             response = requests.get(geocoder_request)
             json_response = response.json()
             self.coords = [float(i) for i in json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["Point"]["pos"].split()]
-            self.point = self.coords
+            self.point = copy.copy(self.coords)
             data = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]["metaDataProperty"]["GeocoderMetaData"]["Address"]["formatted"]
             self.searched_adress = f"Adress: {data}"
             try:
@@ -118,7 +121,7 @@ class Map(QMainWindow):
                 self.searched_index = ''
 
         except IndexError:
-            self.speaker.say('bad beep', 'error', 'search error', important=True)
+            self.speaker.say('bad beep', 'search error', important=True)
             self.img.setText('Ошибка поиска!')
             return
         except requests.exceptions.ConnectionError:
@@ -131,11 +134,12 @@ class Map(QMainWindow):
         self.update_map()
 
     def update_map(self):
+        print(self.point)
         params = {"ll": f"{self.coords[0]},{self.coords[1]}",
                   "l": self.view,
                   "z": self.map_spn}
         if self.point:
-            params["pt"] = f'{self.point[0]},{self.point[1]},ya_ru'
+            params["pt"] = f'{self.point[0]},{self.point[1]},ya_en'
         try:
             response = requests.get(f'http://static-maps.yandex.ru/1.x/', params=params)
             # response = requests.get(f'http://static-maps.yandex.ru/1.x/?ll={x},{y}&l={self.view}&z={self.map_spn}&pt={self.point[0]},{self.point[1]},pm2rdm', params=params)
@@ -173,13 +177,21 @@ class Map(QMainWindow):
             case 61:
                 self.map_spn += 1
             case 16777235:  # up
-                self.coords[1] += 10
+                self.coords[1] += movas[self.map_spn - 1]
             case 16777237:  # down
-                self.coords[1] -= 10
+                self.coords[1] -= movas[self.map_spn - 1]
             case 16777234:  # left
-                self.coords[0] -= 10
+                self.coords[0] -= movas[self.map_spn - 1]
             case 16777236:  # right
-                self.coords[0] += 10
+                self.coords[0] += movas[self.map_spn - 1]
+            # case 16777235:  # up
+            #     self.point[1] += movas[self.map_spn - 1]
+            # case 16777237:  # down
+            #     self.point[1] -= movas[self.map_spn - 1]
+            # case 16777234:  # left
+            #     self.point[0] -= movas[self.map_spn - 1]
+            # case 16777236:  # right
+            #     self.point[0] += movas[self.map_spn - 1]
             case _:
                 return
 
@@ -192,12 +204,33 @@ class Map(QMainWindow):
             self.map_spn = 21
             return
 
+        if self.coords[0] > 180:
+            self.coords[0] -= 360
+        if self.coords[0] < -180:
+            self.coords[0] += 360
+        if self.coords[1] > 90:
+            self.coords[1] -= 180
+        if self.coords[1] < -90:
+            self.coords[1] += 180
+
+        # if self.point[0] > 180:
+        #     self.point[0] -= 360
+        # if self.point[0] < -180:
+        #     self.point[0] += 360
+        # if self.point[1] > 90:
+        #     self.point[1] -= 180
+        # if self.point[1] < -90:
+        #     self.point[1] -= 180
+
         self.update_map()
-        print(self.coords)
+        print(movas[self.map_spn - 1])
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Map()
     ex.show()
-    sys.exit(app.exec())
+    try:
+        sys.exit(app.exec())
+    except Exception as f:
+        print(f)

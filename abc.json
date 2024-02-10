@@ -1,0 +1,808 @@
+{
+  "response":{
+    "GeoObjectCollection":{
+      "metaDataProperty":{
+        "GeocoderResponseMetaData":{
+          "request":"Октябрьская улица, 36",
+          "results":"10",
+          "found":"10"
+        }
+      },
+      "featureMember":[
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Тула, Октябрьская улица, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Тула, Октябрьская улица, 36",
+                  "postal_code":"300002",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Центральный федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Тульская область"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"муниципальное образование Тула"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Тула"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская улица"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Тула, Октябрьская улица, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Тульская область",
+                      "SubAdministrativeArea":{
+                        "SubAdministrativeAreaName":"муниципальное образование Тула",
+                        "Locality":{
+                          "LocalityName":"Тула",
+                          "Thoroughfare":{
+                            "ThoroughfareName":"Октябрьская улица",
+                            "Premise":{
+                              "PremiseNumber":"36",
+                              "PostalCode":{
+                                "PostalCodeNumber":"300002"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская улица, 36",
+            "description":"Тула, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"37.616324 54.207237",
+                "upperCorner":"37.624534 54.21205"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=Cgg1NzY1NzE4MhI90KDQvtGB0YHQuNGPLCDQotGD0LvQsCwg0J7QutGC0Y_QsdGA0YzRgdC60LDRjyDRg9C70LjRhtCwLCAzNiIKDVF7FkIVrdZYQg,,",
+            "Point":{
+              "pos":"37.620429 54.209644"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Свердловская область, Каменск-Уральский, Октябрьская улица, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Свердловская область, Каменск-Уральский, Октябрьская улица, 36",
+                  "postal_code":"623406",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Уральский федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Свердловская область"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"Каменск-Уральский городской округ"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Каменск-Уральский"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская улица"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Свердловская область, Каменск-Уральский, Октябрьская улица, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Свердловская область",
+                      "SubAdministrativeArea":{
+                        "SubAdministrativeAreaName":"Каменск-Уральский городской округ",
+                        "Locality":{
+                          "LocalityName":"Каменск-Уральский",
+                          "Thoroughfare":{
+                            "ThoroughfareName":"Октябрьская улица",
+                            "Premise":{
+                              "PremiseNumber":"36",
+                              "PostalCode":{
+                                "PostalCodeNumber":"623406"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская улица, 36",
+            "description":"Каменск-Уральский, Свердловская область, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"61.963084 56.377742",
+                "upperCorner":"61.971295 56.382297"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=Cgg1NjI0NDE1MBJ_0KDQvtGB0YHQuNGPLCDQodCy0LXRgNC00LvQvtCy0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwsINCa0LDQvNC10L3RgdC6LdCj0YDQsNC70YzRgdC60LjQuSwg0J7QutGC0Y_QsdGA0YzRgdC60LDRjyDRg9C70LjRhtCwLCAzNiIKDWjed0IVI4VhQg,,",
+            "Point":{
+              "pos":"61.96719 56.380019"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Санкт-Петербург, Октябрьская набережная, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Санкт-Петербург, Октябрьская набережная, 36",
+                  "postal_code":"193091",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Северо-Западный федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Санкт-Петербург"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Санкт-Петербург"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская набережная"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Санкт-Петербург, Октябрьская набережная, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Санкт-Петербург",
+                      "Locality":{
+                        "LocalityName":"Санкт-Петербург",
+                        "Thoroughfare":{
+                          "ThoroughfareName":"Октябрьская набережная",
+                          "Premise":{
+                            "PremiseNumber":"36",
+                            "PostalCode":{
+                              "PostalCodeNumber":"193091"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская набережная, 36",
+            "description":"Санкт-Петербург, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"30.433637 59.902014",
+                "upperCorner":"30.441848 59.906138"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=Cgg1NzQyNjY0OBJc0KDQvtGB0YHQuNGPLCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQsywg0J7QutGC0Y_QsdGA0YzRgdC60LDRjyDQvdCw0LHQtdGA0LXQttC90LDRjywgMzYiCg2AgPNBFcadb0I,",
+            "Point":{
+              "pos":"30.437743 59.904076"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Амурская область, Благовещенск, Октябрьская улица, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Амурская область, Благовещенск, Октябрьская улица, 36",
+                  "postal_code":"675005",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Дальневосточный федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Амурская область"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"городской округ Благовещенск"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Благовещенск"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская улица"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Амурская область, Благовещенск, Октябрьская улица, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Амурская область",
+                      "SubAdministrativeArea":{
+                        "SubAdministrativeAreaName":"городской округ Благовещенск",
+                        "Locality":{
+                          "LocalityName":"Благовещенск",
+                          "Thoroughfare":{
+                            "ThoroughfareName":"Октябрьская улица",
+                            "Premise":{
+                              "PremiseNumber":"36",
+                              "PostalCode":{
+                                "PostalCodeNumber":"675005"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская улица, 36",
+            "description":"Благовещенск, Амурская область, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"127.561974 50.265294",
+                "upperCorner":"127.570185 50.270557"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=Cgg1NTk5OTI2NRJu0KDQvtGB0YHQuNGPLCDQkNC80YPRgNGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCDQkdC70LDQs9C-0LLQtdGJ0LXQvdGB0LosINCe0LrRgtGP0LHRgNGM0YHQutCw0Y8g0YPQu9C40YbQsCwgMzYiCg3VIf9CFVsSSUI,",
+            "Point":{
+              "pos":"127.566079 50.267925"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Тульская область, Донской, Октябрьская улица, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Тульская область, Донской, Октябрьская улица, 36",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Центральный федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Тульская область"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"муниципальное образование Донской"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Донской"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская улица"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Тульская область, Донской, Октябрьская улица, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Тульская область",
+                      "SubAdministrativeArea":{
+                        "SubAdministrativeAreaName":"муниципальное образование Донской",
+                        "Locality":{
+                          "LocalityName":"Донской",
+                          "Thoroughfare":{
+                            "ThoroughfareName":"Октябрьская улица",
+                            "Premise":{
+                              "PremiseNumber":"36"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская улица, 36",
+            "description":"Донской, Тульская область, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"38.322292 53.96618",
+                "upperCorner":"38.330502 53.971021"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=CgoxNDk0NTQwNjgwEmTQoNC-0YHRgdC40Y8sINCi0YPQu9GM0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwsINCU0L7QvdGB0LrQvtC5LCDQntC60YLRj9Cx0YDRjNGB0LrQsNGPINGD0LvQuNGG0LAsIDM2IgoNO04ZQhXZ31dC",
+            "Point":{
+              "pos":"38.326397 53.968601"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Казахстан, Алматы, улица Айтеке би, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"KZ",
+                  "formatted":"Казахстан, Алматы, улица Айтеке би, 36",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Казахстан"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Алматы"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Алматы"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"улица Айтеке би"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Казахстан, Алматы, улица Айтеке би, 36",
+                    "CountryNameCode":"KZ",
+                    "CountryName":"Казахстан",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Алматы",
+                      "Locality":{
+                        "LocalityName":"Алматы",
+                        "Thoroughfare":{
+                          "ThoroughfareName":"улица Айтеке би",
+                          "Premise":{
+                            "PremiseNumber":"36"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"улица Айтеке би, 36",
+            "description":"Алматы, Казахстан",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"76.955032 43.255951",
+                "upperCorner":"76.963243 43.261952"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=Cgg2NzI5ODIyMRJE0prQsNC30LDSm9GB0YLQsNC9LCDQkNC70LzQsNGC0YssINOY0LnRgtC10LrQtSDQsdC4INC606nRiNC10YHRliwgMzYiCg0U65lCFSoJLUI,",
+            "Point":{
+              "pos":"76.959138 43.258951"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Казахстан, Астана, улица Мухтара Ауэзова, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"KZ",
+                  "formatted":"Казахстан, Астана, улица Мухтара Ауэзова, 36",
+                  "postal_code":"Z11E2C5",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Казахстан"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"город республиканского значения Астана"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Астана"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"улица Мухтара Ауэзова"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Казахстан, Астана, улица Мухтара Ауэзова, 36",
+                    "CountryNameCode":"KZ",
+                    "CountryName":"Казахстан",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"город республиканского значения Астана",
+                      "Locality":{
+                        "LocalityName":"Астана",
+                        "Thoroughfare":{
+                          "ThoroughfareName":"улица Мухтара Ауэзова",
+                          "Premise":{
+                            "PremiseNumber":"36",
+                            "PostalCode":{
+                              "PostalCodeNumber":"Z11E2C5"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"улица Мухтара Ауэзова, 36",
+            "description":"Астана, Казахстан",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"71.417592 51.175721",
+                "upperCorner":"71.425803 51.180882"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=Cgg2NzM1MzcxOBJM0prQsNC30LDSm9GB0YLQsNC9LCDQkNGB0YLQsNC90LAsINCc0rHRhdGC0LDRgCDTmNGD0LXQt9C-0LIg0LrTqdGI0LXRgdGWLCAzNiIKDenXjkIVlLZMQg,,",
+            "Point":{
+              "pos":"71.421698 51.178301"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Брянская область, рабочий посёлок Климово, Октябрьская улица, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Брянская область, рабочий посёлок Климово, Октябрьская улица, 36",
+                  "postal_code":"243040",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Центральный федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Брянская область"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"Климовский район"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"Климовское городское поселение"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"рабочий посёлок Климово"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская улица"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Брянская область, рабочий посёлок Климово, Октябрьская улица, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Брянская область",
+                      "SubAdministrativeArea":{
+                        "SubAdministrativeAreaName":"Климовский район",
+                        "Locality":{
+                          "LocalityName":"рабочий посёлок Климово",
+                          "Thoroughfare":{
+                            "ThoroughfareName":"Октябрьская улица",
+                            "Premise":{
+                              "PremiseNumber":"36",
+                              "PostalCode":{
+                                "PostalCodeNumber":"243040"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская улица, 36",
+            "description":"рабочий посёлок Климово, Брянская область, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"32.186161 52.376285",
+                "upperCorner":"32.194371 52.381309"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=CgoxNTI5OTA5MTE5EoIB0KDQvtGB0YHQuNGPLCDQkdGA0Y_QvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCDRgNCw0LHQvtGH0LjQuSDQv9C-0YHRkdC70L7QuiDQmtC70LjQvNC-0LLQviwg0J7QutGC0Y_QsdGA0YzRgdC60LDRjyDRg9C70LjRhtCwLCAzNiIKDdXCAEIV5INRQg,,",
+            "Point":{
+              "pos":"32.190266 52.378797"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Ставропольский край, Ессентуки, Октябрьская улица, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Ставропольский край, Ессентуки, Октябрьская улица, 36",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Северо-Кавказский федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Ставропольский край"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"городской округ Ессентуки"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"Ессентуки"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская улица"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Ставропольский край, Ессентуки, Октябрьская улица, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Ставропольский край",
+                      "SubAdministrativeArea":{
+                        "SubAdministrativeAreaName":"городской округ Ессентуки",
+                        "Locality":{
+                          "LocalityName":"Ессентуки",
+                          "Thoroughfare":{
+                            "ThoroughfareName":"Октябрьская улица",
+                            "Premise":{
+                              "PremiseNumber":"36"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская улица, 36",
+            "description":"Ессентуки, Ставропольский край, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"42.837377 44.023139",
+                "upperCorner":"42.845588 44.029063"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=CgoyMDA3MTYyMzc3Em7QoNC-0YHRgdC40Y8sINCh0YLQsNCy0YDQvtC_0L7Qu9GM0YHQutC40Lkg0LrRgNCw0LksINCV0YHRgdC10L3RgtGD0LrQuCwg0J7QutGC0Y_QsdGA0YzRgdC60LDRjyDRg9C70LjRhtCwLCAzNiIKDa9dK0IVuxowQg,,",
+            "Point":{
+              "pos":"42.841482 44.026101"
+            }
+          }
+        },
+        {
+          "GeoObject":{
+            "metaDataProperty":{
+              "GeocoderMetaData":{
+                "precision":"exact",
+                "text":"Россия, Краснодарский край, Новокубанский район, станица Советская, Октябрьская улица, 36",
+                "kind":"house",
+                "Address":{
+                  "country_code":"RU",
+                  "formatted":"Россия, Краснодарский край, Новокубанский район, станица Советская, Октябрьская улица, 36",
+                  "Components":[
+                    {
+                      "kind":"country",
+                      "name":"Россия"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Южный федеральный округ"
+                    },
+                    {
+                      "kind":"province",
+                      "name":"Краснодарский край"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"Новокубанский район"
+                    },
+                    {
+                      "kind":"area",
+                      "name":"Советское сельское поселение"
+                    },
+                    {
+                      "kind":"locality",
+                      "name":"станица Советская"
+                    },
+                    {
+                      "kind":"street",
+                      "name":"Октябрьская улица"
+                    },
+                    {
+                      "kind":"house",
+                      "name":"36"
+                    }
+                  ]
+                },
+                "AddressDetails":{
+                  "Country":{
+                    "AddressLine":"Россия, Краснодарский край, Новокубанский район, станица Советская, Октябрьская улица, 36",
+                    "CountryNameCode":"RU",
+                    "CountryName":"Россия",
+                    "AdministrativeArea":{
+                      "AdministrativeAreaName":"Краснодарский край",
+                      "SubAdministrativeArea":{
+                        "SubAdministrativeAreaName":"Новокубанский район",
+                        "Locality":{
+                          "LocalityName":"станица Советская",
+                          "Thoroughfare":{
+                            "ThoroughfareName":"Октябрьская улица",
+                            "Premise":{
+                              "PremiseNumber":"36"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name":"Октябрьская улица, 36",
+            "description":"станица Советская, Новокубанский район, Краснодарский край, Россия",
+            "boundedBy":{
+              "Envelope":{
+                "lowerCorner":"41.197017 44.746214",
+                "upperCorner":"41.205228 44.752064"
+              }
+            },
+            "uri":"ymapsbm1://geo?data=CgozNzgzMDQ5NjgyEqIB0KDQvtGB0YHQuNGPLCDQmtGA0LDRgdC90L7QtNCw0YDRgdC60LjQuSDQutGA0LDQuSwg0J3QvtCy0L7QutGD0LHQsNC90YHQutC40Lkg0YDQsNC50L7QvSwg0YHRgtCw0L3QuNGG0LAg0KHQvtCy0LXRgtGB0LrQsNGPLCDQntC60YLRj9Cx0YDRjNGB0LrQsNGPINGD0LvQuNGG0LAsIDM2IgoN880kQhUe_zJC",
+            "Point":{
+              "pos":"41.201123 44.749139"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
