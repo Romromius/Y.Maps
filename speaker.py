@@ -32,6 +32,11 @@ class Speaker:
                     self.say('bad beep', 'speaker error', 'no file', important=True)
                     self.busy = False
                     return
+                except pygame.error:
+                    print('Not audio!')
+                    self.say('bad beep', 'speaker error', 'error', important=True)
+                    self.busy = False
+                    return
         print('Done for now.')
         self.busy = False
 
